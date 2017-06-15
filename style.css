@@ -1,11 +1,5 @@
 
 body{
-  background-color: black !important;
+  background-color: white !important;
   font-family: 'Pacifico' !important;
-}
-.top{
-  margin-top: 75px;
-}
-.row{
-  margin-top: 120px;
 }

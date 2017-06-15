@@ -16,16 +16,16 @@
 <div class="container text-center">
     <h1 class="top">Local Weather</h1>
     <div class="row">
-    <div class="col-md-4">
+    <div>
     <canvas id="icon1" width="75" height="75"></canvas>
-    <canvas id="icon2" width="75" height="75"></canvas>
   </div>
-  <div class="col-md-4">
+  <div>
     <h1 id="temp"></h1>
 </div>
-<div class="col-md-4">
+<div>
   <h2 id ="location"></h2>
 </div>
+  <h2 id="summary"></h1>
 </div>
 </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -44,27 +44,58 @@
       $.getJSON('https://crossorigin.me/https://api.darksky.net/forecast/55ecd9d1e1aa0104fbf070b4562630a5/'+location.latitude+","+location.longitude, function(data) {
       $('#location').html(city_state);
       $('#temp').html(data.currently.temperature);
+      $("#summary").html(data.currently.summary);
+      var skycons;
+      var d = new Date();
+      var n = d.getHours();
+
+//The follow switch-case and if-else determine the weather icon
+      switch(data.currently.summary){
+      case "Cloudy":
+            skycons = new Skycons({"color": "gray"});
+            skycons.add("icon1", Skycons.CLOUDY)
+            break;
+      case "Rain":
+            skycons = new Skycons({"color": "royalblue"});
+            skycons.add("icon1", Skycons.RAIN)
+            break;
+      case "Sleet":
+            skycons = new Skycons({"color": "white"});
+            skycons.add("icon1", Skycons.SLEET)
+            break;
+      case "Snow":
+            skycons = new Skycons({"color": "white"});
+            skycons.add("icon1", Skycons.SNOW)
+            break;
+      case "Wind":
+            skycons = new Skycons({"color": "white"});
+            skycons.add("icon1", Skycons.WIND)
+            break;
+      case "Fog":
+            skycons = new Skycons({"color": "gray"});
+            skycons.add("icon1", Skycons.FOG)
+            break;
+      }
+      if(data.currently.summary=="Partly Cloudy"){
+        skycons = new Skycons({"color": "blue"});
+        if(n < 4 || n > 16)
+        skycons.add("icon1", Skycons.PARTLY_CLOUDY_NIGHT);
+        else{
+          skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+        }
+      }
+
+      if(data.currently.summary=="Clear"){
+        skycons = new Skycons({"color": "royalblue"});
+        if(n < 4 || n > 16)
+          skycons.add("icon1", Skycons.CLEAR_NIGHT);
+        else{
+          skycons.add("icon1", Skycons.CLEAR_DAY);
+        }
+      }
+      skycons.play();
 });
     }
 	});</script>
-  /
-<script>
-  //Creates skycons
-  var skycons = new Skycons({"color": "red"});
-  // on Android, a nasty hack is needed: {"resizeClear": true}
-
-  // you can add a canvas by it's ID...
-  skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
-
-  // ...or by the canvas DOM element itself.
-  skycons.add(document.getElementById("icon2"), Skycons.RAIN);
-
-  // if you're using the Forecast API, you can also supply
-  // strings: "partly-cloudy-day" or "rain".
-
-  // start animation!
-  skycons.play();
-
-</script>
-</body>
+  /</body>
 </html>
