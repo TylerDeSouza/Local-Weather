@@ -20,14 +20,14 @@
   <div class="col-sm-3">
     <canvas id="icon1" width="75" height="75"></canvas>
   </div>
+  <h2 id="summary" class="col-md-3"></h1></div>
+<br>
   <div class="col-md-3">
     <h1 id="temp"></h1>
   </div>
-</div>
-<div class="col-md-3">
-  <h2 id ="location"></h2>
-</div>
-<h2 id="summary" class="col-md-3"></h1>
+  <div class="col-md-3">
+    <h2 id ="location"></h2>
+  </div>
 </div>
 </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -46,7 +46,7 @@ $.ajax({
       /*Receives weather data using Dark Sky API*/
       $.getJSON('https://crossorigin.me/https://api.darksky.net/forecast/55ecd9d1e1aa0104fbf070b4562630a5/'+location.latitude+","+location.longitude, function(data) {
       $('#location').html(city_state);
-      var localTemp = data.currently.temperature + " &#176;F";
+      var localTemp = Math.round(data.currently.temperature) + " &#176;F";
       $('#temp').html(localTemp);
       $("#summary").html(data.currently.summary);
       var skycons;
