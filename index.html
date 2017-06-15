@@ -7,8 +7,7 @@
     <title>Local Weather</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <!-- Bootstrap -->
-
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
   </head>
 <!-- Page layout-->
   <body>
@@ -16,12 +15,17 @@
     <h1>Local Weather</h1>
     <p id ="data">hello</p>
     <h2 id="temp">The temperature is: </h2>
+    <canvas id="icon1" width="128" height="128"></canvas>
+    <canvas id="icon2" width="128" height="128"></canvas>
+
 </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
+
 <script>$.ajax({
+//Acquires user's location
 		url: "https://geoip-db.com/jsonp",
 		jsonpCallback: "callback",
 		dataType: "jsonp",
@@ -32,10 +36,30 @@
 			$('#latitude').html(location.latitude);
 			$('#longitude').html(location.longitude);
 			$('#ip').html(location.IPv4);
+
+      /*Receives weather data using Dark Sky API*/
       $.getJSON('https://crossorigin.me/https://api.darksky.net/forecast/55ecd9d1e1aa0104fbf070b4562630a5/'+location.latitude+","+location.longitude, function(data) {
       $('#temp').html(data.currently.temperature);
 });
     }
 	});</script>
+
+<script>
+  var skycons = new Skycons({"color": "pink"});
+  // on Android, a nasty hack is needed: {"resizeClear": true}
+
+  // you can add a canvas by it's ID...
+  skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+
+  // ...or by the canvas DOM element itself.
+  skycons.add(document.getElementById("icon2"), Skycons.RAIN);
+
+  // if you're using the Forecast API, you can also supply
+  // strings: "partly-cloudy-day" or "rain".
+
+  // start animation!
+  skycons.play();
+
+</script>
 </body>
 </html>
