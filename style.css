@@ -1,5 +1,16 @@
 
 body{
-  background-color: white !important;
+  background-color: #FFCE00 !important;
   font-family: 'Pacifico' !important;
+
+}
+.top{
+  font-weight: bold;
+  margin-top: 75px;
+}
+.row{
+  margin-top:75px;
+}
+.together{
+  margin-left: 325px !important;
 }
