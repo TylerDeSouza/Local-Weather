@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Local Weather</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <!--Skycons API-->
+    <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
     <!-- Bootstrap -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
-  </head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Page layout-->
-  <body>
+<body>
 <div class="container text-center">
-    <h1>Local Weather</h1>
-    <p id ="data">hello</p>
+    <h1 class="heading">Local Weather</h1>
+    <p id ="data"></p>
     <h2 id="temp">The temperature is: </h2>
     <canvas id="icon1" width="128" height="128"></canvas>
     <canvas id="icon2" width="128" height="128"></canvas>
@@ -43,9 +44,10 @@
 });
     }
 	});</script>
-
+  /
 <script>
-  var skycons = new Skycons({"color": "pink"});
+  //Creates skycons
+  var skycons = new Skycons({"color": "red"});
   // on Android, a nasty hack is needed: {"resizeClear": true}
 
   // you can add a canvas by it's ID...
